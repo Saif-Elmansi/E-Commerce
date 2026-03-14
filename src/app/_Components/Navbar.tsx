@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import imgLogo from "../assets/images/Main Logo.png";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,88 +12,164 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
+import {
+  Gift,
+  Heart,
+  Mail,
+  Phone,
+  Search,
+  ShoppingBag,
+  Truck,
+  User,
+  UserPlus,
+} from "lucide-react";
+import { BiSupport } from "react-icons/bi";
 
 export function Navbar() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="w-96">
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built with Tailwind CSS.
-              </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem className="hidden md:flex">
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/docs">Docs</Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <>
+      <div className="w-full  py-2 border-b border-gray-200/50 mb-1">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center text-[13px] font-medium text-slate-500">
+          <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Truck size={15} className="text-blue-600" />
+              <span>Free Shipping on Orders 500 EGP</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Gift size={15} className="text-blue-600" />
+              <span>New Arrivals Daily</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-4 border-r border-gray-300 pr-5">
+              <Link
+                href="tel:+18001234567"
+                className="hover:text-blue-600 transition flex items-center gap-1.5"
+              >
+                <Phone size={14} /> +1 (800) 123-4567
+              </Link>
+              <Link
+                href="mailto:support@freshcart.com"
+                className="hover:text-blue-600 transition flex items-center gap-1.5"
+              >
+                <Mail size={14} /> Support
+              </Link>
+            </div>
+            <div className="flex items-center gap-4">
+              <button className="hover:text-blue-600 transition flex items-center gap-1.5">
+                <User size={15} /> Sign In
+              </button>
+              <button className="bg-blue-600 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition">
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <NavigationMenu className="px-10 max-w-full justify-between">
+        <Link href="/" className="shrink-0">
+          <div className="text-2xl font-bold text-slate-800 tracking-tight">
+            MEGA<span className="text-blue-600">STORE</span>
+          </div>
+        </Link>
+
+        <div className="hidden lg:flex grow max-w-xl px-3">
+          <div className="relative w-full group">
+            <input
+              type="text"
+              placeholder="Search for products, brands..."
+              className="w-full h-11 pl-5 pr-12 bg-gray-100 border-none rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all outline-none text-slate-600"
+            />
+            <button
+              title="button search"
+              className="absolute right-1.5 top-1.5 w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
+            >
+              <Search size={18} />
+            </button>
+          </div>
+        </div>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/">Home</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/Shop">Shop</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="w-30">
+                <ListItem href="/docs" title="All Categorise"></ListItem>
+                <ListItem href="/" title="Electronics"></ListItem>
+                <ListItem href="/" title="Women's Fashion"></ListItem>
+                <ListItem href="/" title="Men's Fashion"></ListItem>
+                <ListItem href="/" title="Beauty & Health"></ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/Brands">Brands</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+        <div className="flex items-center px-2">
+          <Link href={"/"}>
+            <div className="hidden xl:flex items-center gap-3 border-r pr-6 border-gray-200">
+              <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+                <BiSupport className="text-blue-600 text-xl" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[11px] text-slate-400 font-bold uppercase leading-none">
+                  24/7 Support
+                </span>
+                <span className="text-sm font-bold text-slate-700">
+                  Contact Us
+                </span>
+              </div>
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
+            >
+              <Heart size={22} />
+              <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full">
+                0
+              </span>
+            </Link>
+            <Link
+              href="/"
+              className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
+            >
+              <ShoppingBag size={22} />
+              <span className="absolute top-1 right-1 h-4 w-4 bg-blue-600 text-white text-[10px] flex items-center justify-center rounded-full">
+                3
+              </span>
+            </Link>
+          </div>
+        </div>
+      </NavigationMenu>
+    </>
   );
 }
 
@@ -106,7 +183,7 @@ function ListItem({
     <li {...props}>
       <NavigationMenuLink asChild>
         <Link href={href}>
-          <div className="flex flex-col gap-1 text-sm">
+          <div className="flex flex-col  gap-1 text-sm">
             <div className="leading-none font-medium">{title}</div>
             <div className="line-clamp-2 text-muted-foreground">{children}</div>
           </div>

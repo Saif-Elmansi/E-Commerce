@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import imgLogo from "../assets/images/Main Logo.png";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -32,7 +31,6 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [categoriesOpen, setCategoriesOpen] = React.useState(false);
 
-  // Close mobile menu when clicking outside or on escape key
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -55,7 +53,7 @@ export function Navbar() {
   }, [mobileMenuOpen]);
 
   return (
-    <>
+    <div className="fixed z-50 bg-white w-full top-0">
       <div className="w-full  py-2 border-b border-gray-200/50 mb-1">
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center text-[13px] font-medium text-slate-500">
           <div className="hidden md:flex items-center gap-6">
@@ -75,18 +73,21 @@ export function Navbar() {
                 href="tel:+18001234567"
                 className="hover:text-blue-600 transition flex items-center gap-1.5 text-xs sm:text-[13px]"
               >
-                <Phone size={14} /> <span className="hidden md:inline">+1 (800) 123-4567</span>
+                <Phone size={14} />{" "}
+                <span className="hidden md:inline">+1 (800) 123-4567</span>
               </Link>
               <Link
                 href="mailto:support@freshcart.com"
                 className="hover:text-blue-600 transition flex items-center gap-1.5 text-xs sm:text-[13px]"
               >
-                <Mail size={14} /> <span className="hidden lg:inline">Support</span>
+                <Mail size={14} />{" "}
+                <span className="hidden lg:inline">Support</span>
               </Link>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
               <button className="hover:text-blue-600 transition flex items-center gap-1.5 text-xs sm:text-sm">
-                <User size={15} /> <span className="hidden sm:inline">Sign In</span>
+                <User size={15} />{" "}
+                <span className="hidden sm:inline">Sign In</span>
               </button>
               <button className="bg-blue-600 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-blue-700 transition text-xs sm:text-sm">
                 <span className="hidden sm:inline">Sign Up</span>
@@ -98,7 +99,7 @@ export function Navbar() {
       </div>
 
       <NavigationMenu
-        className="px-4 sm:px-6 lg:px-10 max-w-full justify-between"
+        className="px-4 sm:px-6 lg:px-10 max-w-full justify-between border-b pb-2 border-gray-200/50 mb-1"
         viewport={false}
       >
         <div className="flex items-center gap-3 sm:gap-4 w-full lg:w-auto">
@@ -109,7 +110,7 @@ export function Navbar() {
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          
+
           <Link href="/" className="shrink-0">
             <div className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
               MEGA<span className="text-blue-600">STORE</span>
@@ -156,7 +157,7 @@ export function Navbar() {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[200px] gap-1 p-2">
+              <ul className="grid w-50 gap-1 p-2 fixed z-50 bg-white ">
                 <ListItem href="/docs" title="All Categorise"></ListItem>
                 <ListItem href="/" title="Electronics"></ListItem>
                 <ListItem href="/" title="Women's Fashion"></ListItem>
@@ -206,7 +207,7 @@ export function Navbar() {
               href="/"
               className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
             >
-              <Heart size={20} className="sm:w-[22px] sm:h-[22px]" />
+              <Heart size={20} className="sm:w-5.5 sm:h-5.5" />
               <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full">
                 0
               </span>
@@ -215,7 +216,7 @@ export function Navbar() {
               href="/"
               className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
             >
-              <ShoppingBag size={20} className="sm:w-[22px] sm:h-[22px]" />
+              <ShoppingBag size={20} className="sm:w-5.5 sm:h-5.5" />
               <span className="absolute top-1 right-1 h-4 w-4 bg-blue-600 text-white text-[10px] flex items-center justify-center rounded-full">
                 0
               </span>
@@ -228,128 +229,140 @@ export function Navbar() {
       {mobileMenuOpen && (
         <>
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-40 top-[120px]"
+            className="lg:hidden fixed inset-0 bg-black/50 z-40 animate-in fade-in duration-300"
             onClick={() => setMobileMenuOpen(false)}
           />
-          <div className="lg:hidden fixed inset-x-0 top-[120px] bottom-0 z-50 bg-white border-t border-gray-200 shadow-lg overflow-y-auto">
+          <div className="lg:hidden fixed top-0 right-0 h-full w-[85%] max-w-sm z-50 bg-white shadow-2xl overflow-y-auto transform transition-transform duration-300 ease-out">
             <div className="flex flex-col h-full">
-            {/* Mobile Search */}
-            <div className="p-4 border-b border-gray-200">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search for products, brands..."
-                  className="w-full h-11 pl-5 pr-12 bg-gray-100 border-none rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all outline-none text-slate-600"
-                />
+              {/* Header with close button */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                <h2 className="text-lg font-bold text-slate-800">Menu</h2>
                 <button
-                  title="button search"
-                  className="absolute right-1.5 top-1.5 w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition"
+                  aria-label="Close menu"
                 >
-                  <Search size={18} />
+                  <X size={24} />
                 </button>
               </div>
-            </div>
 
-            {/* Mobile Navigation Links */}
-            <nav className="flex flex-col p-4">
-              <Link
-                href="/"
-                className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link
-                href="/Shop"
-                className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Shop
-              </Link>
-              
-              {/* Categories Dropdown */}
-              <div className="py-3 px-4">
-                <button
-                  onClick={() => setCategoriesOpen(!categoriesOpen)}
-                  className="w-full flex items-center justify-between text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium py-2 px-2"
-                >
-                  <span>Getting started</span>
-                  <ChevronDown
-                    size={20}
-                    className={`transition-transform ${
-                      categoriesOpen ? "rotate-180" : ""
-                    }`}
+              {/* Mobile Search */}
+              <div className="p-4 border-b border-gray-200">
+                <div className="relative w-full">
+                  <input
+                    type="text"
+                    placeholder="Search for products, brands..."
+                    className="w-full h-11 pl-5 pr-12 bg-gray-100 border-none rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all outline-none text-slate-600"
                   />
-                </button>
-                {categoriesOpen && (
-                  <div className="mt-2 ml-4 space-y-2">
-                    <Link
-                      href="/docs"
-                      className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setCategoriesOpen(false);
-                      }}
-                    >
-                      All Categorise
-                    </Link>
-                    <Link
-                      href="/"
-                      className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setCategoriesOpen(false);
-                      }}
-                    >
-                      Electronics
-                    </Link>
-                    <Link
-                      href="/"
-                      className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setCategoriesOpen(false);
-                      }}
-                    >
-                      Women's Fashion
-                    </Link>
-                    <Link
-                      href="/"
-                      className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setCategoriesOpen(false);
-                      }}
-                    >
-                      Men's Fashion
-                    </Link>
-                    <Link
-                      href="/"
-                      className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setCategoriesOpen(false);
-                      }}
-                    >
-                      Beauty & Health
-                    </Link>
-                  </div>
-                )}
+                  <button
+                    title="button search"
+                    className="absolute right-1.5 top-1.5 w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
+                  >
+                    <Search size={18} />
+                  </button>
+                </div>
               </div>
 
-              <Link
-                href="/Brands"
-                className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Brands
-              </Link>
-            </nav>
+              {/* Mobile Navigation Links */}
+              <nav className="flex flex-col p-4">
+                <Link
+                  href="/"
+                  className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/Shop"
+                  className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Shop
+                </Link>
+
+                {/* Categories Dropdown */}
+                <div className="py-3 px-4">
+                  <button
+                    onClick={() => setCategoriesOpen(!categoriesOpen)}
+                    className="w-full flex items-center justify-between text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium py-2 px-2"
+                  >
+                    <span>Getting started</span>
+                    <ChevronDown
+                      size={20}
+                      className={`transition-transform ${
+                        categoriesOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {categoriesOpen && (
+                    <div className="mt-2 ml-4 space-y-2">
+                      <Link
+                        href="/docs"
+                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setCategoriesOpen(false);
+                        }}
+                      >
+                        All Categorise
+                      </Link>
+                      <Link
+                        href="/"
+                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setCategoriesOpen(false);
+                        }}
+                      >
+                        Electronics
+                      </Link>
+                      <Link
+                        href="/"
+                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setCategoriesOpen(false);
+                        }}
+                      >
+                        Women's Fashion
+                      </Link>
+                      <Link
+                        href="/"
+                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setCategoriesOpen(false);
+                        }}
+                      >
+                        Men's Fashion
+                      </Link>
+                      <Link
+                        href="/"
+                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setCategoriesOpen(false);
+                        }}
+                      >
+                        Beauty & Health
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                <Link
+                  href="/Brands"
+                  className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Brands
+                </Link>
+              </nav>
             </div>
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 

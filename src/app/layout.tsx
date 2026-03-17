@@ -24,7 +24,8 @@ export default function RootLayout({
         className={`${exo.variable} font-sans antialiased`}
       >
         <Navbar />
-        {children}
+        <div className="mt-27.5">{children}</div>
+        
       </body>
     </html>
   );

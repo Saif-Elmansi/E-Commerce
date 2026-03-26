@@ -12,6 +12,7 @@ import img4 from "@images/shutterstock_2434354809.webp";
 import ShopByCategory from "./_Components/ShopByCategory/ShopByCategory";
 import { FaHeadset, FaShieldAlt, FaTruck, FaUndo } from "react-icons/fa";
 import CardStyle from "./_Components/CardStyle";
+import BlueNewsletterSection from "./_Components/BlueNewsletterSection";
 
 export default async function Home() {
   let products = await getAllProducts();
@@ -82,7 +83,7 @@ export default async function Home() {
         </div>
       </div>
       <ShopByCategory />
-      <CardStyle/>
+      <CardStyle />
       <MyTitle tag="Featured" name="Products" />
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-6">
         {products?.map((myproduct: ProductType) => (
@@ -91,6 +92,7 @@ export default async function Home() {
           </div>
         ))}
       </div>
+      <BlueNewsletterSection />
     </div>
   );
 }

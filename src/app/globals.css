@@ -132,3 +132,31 @@ body {
     @apply font-sans;
   }
 }
+
+/* إخفاء السهم الافتراضي */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
+/* استايل الزرار نفسه */
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: rgba(208, 205, 205, 0.783);
+  width: 30px !important;
+  height: 30px !important;
+  padding: 6px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: all 0.3s ease;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+/* تأثير عند الوقوف بالماوس */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #f8f8f8;
+}

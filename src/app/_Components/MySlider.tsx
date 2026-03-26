@@ -57,7 +57,7 @@ export default function MySlider({
       >
         {Listofimg.map((image) => (
           <SwiperSlide key={image}>
-            <div className="group relative h-56 sm:h-64 overflow-hidden rounded-3xl border border-gray-100 bg-slate-50">
+            <div className="group relative h-150 sm:h-150 overflow-hidden rounded-3xl border border-gray-100 bg-slate-50">
               <img
                 src={image}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"

@@ -1,7 +1,7 @@
 "use client";
 import { ProductType } from "@/Types/Product.type";
 import React, { useState } from "react";
-import FeaturesBar from "./FeaturesBar";
+import FeaturesBar from "./CompProductDet/FeaturesBar";
 import {
   Heart,
   Minus,
@@ -106,7 +106,7 @@ export default function ProductDet({ productdet }: detType) {
               </div>
               <div className="h-4 w-px bg-slate-200"></div>
               <button className="text-slate-400 text-sm font-bold hover:text-blue-600 transition-colors">
-                8 Customer Reviews
+                {productdet.reviews.length} Customer Reviews
               </button>
             </div>
           </div>
@@ -118,7 +118,7 @@ export default function ProductDet({ productdet }: detType) {
                 Price
               </span>
               <span className="text-5xl font-black text-slate-900 leading-none">
-                {productdet.priceAfterDiscount}
+                {productdet.priceAfterDiscount ? productdet.priceAfterDiscount: productdet.price }
                 <span className="text-lg ml-1 font-bold">EGP</span>
               </span>
             </div>
@@ -129,7 +129,7 @@ export default function ProductDet({ productdet }: detType) {
               <span className="bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-md shadow-sm shadow-red-200">
                 SAVE{" "}
                 {Math.round(
-                  ((productdet.price - productdet.priceAfterDiscount) /
+                  ((productdet.price - (productdet.priceAfterDiscount ? productdet.priceAfterDiscount:productdet.price)) /
                     productdet.price) *
                     100,
                 )}
@@ -262,9 +262,7 @@ export default function ProductDet({ productdet }: detType) {
         </div>
       </div>
       {/* some details */}
-      <div>
-        
-      </div>
+      <div></div>
       {/* the same product */}
       <div></div>
       {/* footer det */}

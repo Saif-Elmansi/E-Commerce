@@ -1,4 +1,4 @@
-import ProductDet from "@/app/_Components/ProductDet";
+import ProductDet from "@/app/_Components/Product/ProductDet";
 import { getProductById } from "@/services/Product";
 import React from "react";
 

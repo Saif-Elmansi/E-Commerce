@@ -12,6 +12,7 @@ import Link from "next/link";
 import AuthSplitLayout from "@/app/_Components/Auth/AuthSplitLayout";
 import { UserPlus } from "lucide-react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { signupServerAction } from "./Signup.action";
 
 function passwordStrengthLabel(score: number) {
   if (score <= 0) return { text: "Weak", color: "bg-red-400", width: "w-1/4" };
@@ -54,27 +55,17 @@ export default function page() {
     try {
       console.log(values);
 
-      const res = await fetch(
-        `https://ecommerce.routemisr.com/api/v1/auth/signup`,
-        {
-          body: JSON.stringify(values),
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const finalRes = await res.json();
+      const finalRes = await signupServerAction(values);
 
       console.log(finalRes);
-      if (finalRes.message === "success") {
+      if (finalRes === "success") {
         toast.success("success SIGN UP", {
           richColors: true,
           position: "top-center",
         });
         rout.push("/");
       } else {
-        throw new Error(finalRes.message || "Something went wrong");
+        throw new Error(finalRes || "Something went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -288,11 +279,17 @@ export default function page() {
             />
             <span>
               I agree to the{" "}
-              <Link href="/" className="font-bold text-blue-600 hover:underline">
+              <Link
+                href="/"
+                className="font-bold text-blue-600 hover:underline"
+              >
                 Terms
               </Link>{" "}
               and{" "}
-              <Link href="/" className="font-bold text-blue-600 hover:underline">
+              <Link
+                href="/"
+                className="font-bold text-blue-600 hover:underline"
+              >
                 Privacy Policy
               </Link>
               .

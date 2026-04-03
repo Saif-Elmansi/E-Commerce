@@ -12,6 +12,7 @@ import Link from "next/link";
 import AuthSplitLayout from "@/app/_Components/Auth/AuthSplitLayout";
 import { LogIn } from "lucide-react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { loginServerAction } from "./Login.action";
 
 export default function page() {
   const form = useForm({
@@ -29,27 +30,17 @@ export default function page() {
     try {
       console.log(values);
 
-      const res = await fetch(
-        `https://ecommerce.routemisr.com/api/v1/auth/signin`,
-        {
-          body: JSON.stringify(values),
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-      const finalRes = await res.json();
+      const finalRes = await loginServerAction(values);
 
       console.log(finalRes);
-      if (finalRes.message === "success") {
+      if (finalRes === "success") {
         toast.success("success SIGN UP", {
           richColors: true,
           position: "top-center",
         });
         rout.push("/");
       } else {
-        throw new Error(finalRes.message || "Something went wrong");
+        throw new Error(finalRes || "Something went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -164,10 +155,7 @@ export default function page() {
             className="group mt-2 h-12 w-full rounded-2xl bg-blue-600 text-base font-bold text-white shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/20"
           >
             <span className="inline-flex items-center justify-center gap-2">
-              <LogIn
-                size={18}
-                className="transition group-hover:scale-110"
-              />
+              <LogIn size={18} className="transition group-hover:scale-110" />
               Sign in
             </span>
           </Button>

@@ -9,7 +9,7 @@ interface CategoryProps {
 export default function CategoryCard({ category }: CategoryProps) {
   return (
     <div
-      className="group category-card-enter cursor-pointer flex flex-col items-center gap-3 rounded-2xl p-3 transition-all duration-300 hover:bg-blue-50/35 hover:shadow-md hover:shadow-blue-500/10 border border-neutral-200 hover:border-blue-100"
+      className="group category-card-enter flex cursor-pointer flex-col items-center gap-3 rounded-2xl border border-slate-100 bg-white/60 p-3 transition-all duration-300 hover:border-blue-200 hover:bg-blue-50/50 hover:shadow-md hover:shadow-blue-500/10"
     >
       <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-blue-500/20">
         <img

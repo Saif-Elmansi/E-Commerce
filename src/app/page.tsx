@@ -14,97 +14,108 @@ import CardStyle from "./_Components/CardStyle";
 import BlueNewsletterSection from "./_Components/BlueNewsletterSection";
 import LoadingView from "./_Components/States/LoadingView";
 
+const ShopByCategoryLazy = lazy(
+  () => import("./_Components/ShopByCategory/ShopByCategory"),
+);
+
 export default async function Home() {
   let products = await getAllProducts();
 
-  let ShopByCategoryLazy = lazy(
-    () => import("./_Components/ShopByCategory/ShopByCategory"),
-  );
-
   const images = [img2.src, img1.src, img3.src, img4.src];
+
+  const trustItems = [
+    {
+      icon: FaTruck,
+      title: "Free Shipping",
+      desc: "On orders over 500 EGP",
+      iconWrap: "bg-blue-50 text-blue-600 ring-blue-100",
+    },
+    {
+      icon: FaShieldAlt,
+      title: "Secure Payment",
+      desc: "100% secure transactions",
+      iconWrap: "bg-sky-50 text-sky-600 ring-sky-100",
+    },
+    {
+      icon: FaUndo,
+      title: "Easy Returns",
+      desc: "14-day return policy",
+      iconWrap: "bg-indigo-50 text-indigo-600 ring-indigo-100",
+    },
+    {
+      icon: FaHeadset,
+      title: "24/7 Support",
+      desc: "Dedicated support team",
+      iconWrap: "bg-cyan-50 text-cyan-600 ring-cyan-100",
+    },
+  ];
+
   return (
-    <div className="w-11/12 m-auto ">
-      <MySlider Listofimg={images} slidesPerView={1} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-6 mt-5 ">
-        {/* 1. Free Shipping */}
-        <div className="flex items-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-w-12 h-12 bg-blue-50 rounded-full mr-3 text-blue-600">
-            <FaTruck size={20} />
-          </div>
-          <div>
-            <h3 className="text-[15px] font-bold text-slate-800 leading-tight">
-              Free Shipping
-            </h3>
-            <p className="text-[12px] text-slate-500 font-medium">
-              On orders over 500 EGP
-            </p>
-          </div>
-        </div>
+    <div className="w-full max-w-7xl mx-auto px-3 sm:px-5 md:px-6 pb-4">
+      <section className="pt-2 md:pt-4">
+        <MySlider Listofimg={images} slidesPerView={1} />
+      </section>
 
-        {/* 2. Secure Payment */}
-        <div className="flex items-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-w-12 h-12 bg-emerald-50 rounded-full mr-3 text-emerald-600">
-            <FaShieldAlt size={20} />
-          </div>
-          <div>
-            <h3 className="text-[15px] font-bold text-slate-800 leading-tight">
-              Secure Payment
-            </h3>
-            <p className="text-[12px] text-slate-500 font-medium">
-              100% secure transactions
-            </p>
-          </div>
+      <section className="mt-6 md:mt-8">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          {trustItems.map(({ icon: Icon, title, desc, iconWrap }) => (
+            <div
+              key={title}
+              className="group flex items-center gap-4 rounded-2xl border border-slate-100/90 bg-white p-4 shadow-sm shadow-slate-200/40 transition duration-300 hover:-translate-y-0.5 hover:border-blue-100 hover:shadow-md hover:shadow-blue-500/10"
+            >
+              <div
+                className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 transition group-hover:scale-105 ${iconWrap}`}
+              >
+                <Icon size={20} />
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-[15px] font-bold leading-tight text-slate-800">
+                  {title}
+                </h3>
+                <p className="mt-0.5 text-xs font-medium text-slate-500 md:text-[12px]">
+                  {desc}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
+      </section>
 
-        {/* 3. Easy Returns */}
-        <div className="flex items-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-w-12 h-12 bg-orange-50 rounded-full mr-3 text-orange-600">
-            <FaUndo size={18} />
-          </div>
-          <div>
-            <h3 className="text-[15px] font-bold text-slate-800 leading-tight">
-              Easy Returns
-            </h3>
-            <p className="text-[12px] text-slate-500 font-medium">
-              14-day return policy
-            </p>
-          </div>
-        </div>
+      <section className="mt-10 md:mt-14">
+        <Suspense
+          fallback={
+            <div className="rounded-3xl border border-dashed border-blue-100 bg-blue-50/20 py-8">
+              <LoadingView />
+            </div>
+          }
+        >
+          <ShopByCategoryLazy />
+        </Suspense>
+      </section>
 
-        {/* 4. 24/7 Support */}
-        <div className="flex items-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="flex items-center justify-center min-w-12 h-12 bg-purple-50 rounded-full mr-3 text-purple-600">
-            <FaHeadset size={20} />
-          </div>
-          <div>
-            <h3 className="text-[15px] font-bold text-slate-800 leading-tight">
-              24/7 Support
-            </h3>
-            <p className="text-[12px] text-slate-500 font-medium">
-              Dedicated support team
-            </p>
-          </div>
+      <section className="mt-10 md:mt-14">
+        <CardStyle />
+      </section>
+
+      <section className="mt-12 md:mt-16">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <MyTitle tag="Featured" name="Products" />
+          <p className="text-sm font-medium text-slate-500 max-w-md">
+            Hand-picked electronics and accessories — quality-checked for you.
+          </p>
         </div>
-      </div>
-      <Suspense
-        fallback={
-          <>
-            <LoadingView />
-          </>
-        }
-      >
-        <ShopByCategoryLazy />
-      </Suspense>
-      <CardStyle />
-      <MyTitle tag="Featured" name="Products" />
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-6">
-        {products?.map((myproduct: ProductType) => (
-          <div className="col-span-1" key={myproduct.id}>
-            <CardProduct product={myproduct} />
-          </div>
-        ))}
-      </div>
-      <BlueNewsletterSection />
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {products?.map((myproduct: ProductType) => (
+            <div className="col-span-1" key={myproduct.id}>
+              <CardProduct product={myproduct} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-12 md:mt-16">
+        <BlueNewsletterSection />
+      </section>
     </div>
   );
 }

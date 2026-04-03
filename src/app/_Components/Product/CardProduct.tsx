@@ -6,94 +6,89 @@ import React from "react";
 interface ProductCardProps {
   product: ProductType;
 }
+
 export default function CardProduct({ product }: ProductCardProps) {
   return (
-    <div className="group relative bg-white rounded-2xl border border-gray-100 p-3 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1">
-      {/* Product Image & Badge */}
-      <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-gray-50">
+    <div className="group relative flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-sm shadow-slate-200/30 transition duration-300 hover:-translate-y-1 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-500/10">
+      <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-linear-to-b from-slate-50 to-blue-50/30 ring-1 ring-slate-100/80">
         <img
           src={product.imageCover}
           alt={product.title}
-          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110"
+          className="h-full w-full object-contain p-2 mix-blend-multiply transition duration-500 group-hover:scale-105"
         />
 
-        {/* Wishlist Button */}
         <button
           title="heart"
-          className="absolute top-2 hover:cursor-pointer right-2 p-2 bg-white/80 backdrop-blur-sm text-slate-400 hover:text-red-500 rounded-full shadow-sm transition-colors"
+          type="button"
+          className="absolute right-2 top-2 rounded-full bg-white/90 p-2 text-slate-400 shadow-sm backdrop-blur-sm transition hover:scale-105 hover:text-red-500"
         >
           <Heart size={18} />
         </button>
         <Link
-          title="heart"
+          title="View product"
           href={`/Product/${product.id}`}
-          className="absolute hover:cursor-pointer top-14 right-2 p-2 bg-white/80 backdrop-blur-sm text-slate-400 hover:text-yellow-500 rounded-full shadow-sm transition-colors"
+          className="absolute right-2 top-14 rounded-full bg-white/90 p-2 text-slate-400 shadow-sm backdrop-blur-sm transition hover:scale-105 hover:text-amber-500"
         >
           <Eye size={18} />
         </Link>
 
-        {/* Brand Badge */}
-        <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-[10px] font-bold text-blue-600 shadow-sm">
+        <div className="absolute bottom-2 left-2 rounded-lg bg-white/95 px-2 py-1 text-[10px] font-bold text-blue-600 shadow-sm backdrop-blur-sm">
           {product.brand?.name}
         </div>
       </div>
 
-      {/* Product Details */}
-      <div className="mt-4 px-1 hover:cursor-pointer">
-        <span className="text-[11px] font-bold text-blue-500 uppercase tracking-wider">
+      <div className="mt-4 flex flex-1 flex-col px-0.5 pb-0.5">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-blue-500">
           {product.category.name}
         </span>
 
-        <h3 className="mt-1 text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-blue-600 transition-colors">
-          {product.title}
+        <h3 className="mt-1 min-h-10 line-clamp-2 text-sm font-bold leading-snug text-slate-800 transition group-hover:text-blue-600">
+          {product.title.split(" ").slice(0, 3).join(" ")}
         </h3>
 
-        <div className="mt-2 flex items-center justify-between">
+        <div className="mt-2 flex flex-1 flex-col justify-end gap-2">
           {product.priceAfterDiscount ? (
-            <div className="flex flex-col items-center">
-              <span className="text-lg font-black text-green-500">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0">
+              <span className="text-lg font-black text-emerald-600">
                 {product.priceAfterDiscount}{" "}
-                <span className="text-[10px] font-medium">EGP</span>
-                <span className="line-through ml-3 mr-1 text-red-500">
-                  {product.price}
-                </span>
-                <span className="text-[10px] font-medium text-slate-900">
-                  EGP
-                </span>
+                <span className="text-[10px] font-semibold">EGP</span>
+              </span>
+              <span className="text-sm font-bold text-slate-400 line-through">
+                {product.price} EGP
               </span>
             </div>
           ) : (
-            <div className="flex flex-col">
-              <span className="text-lg font-black text-slate-900">
-                {product.price}{" "}
-                <span className="text-[10px] font-medium">EGP</span>
-              </span>
-            </div>
+            <span className="text-lg font-black text-slate-900">
+              {product.price}{" "}
+              <span className="text-[10px] font-semibold">EGP</span>
+            </span>
           )}
-        </div>
-        <div className="flex items-center justify-end gap-1  px-2 py-1 rounded-lg">
-          {[...Array(5)].map((_, index) => (
-            <Star
-              key={index}
-              size={16}
-              className={
-                index < Math.round(product.ratingsAverage)
-                  ? "fill-amber-400 text-amber-400"
-                  : "fill-gray-200 text-gray-200"
-              }
-            />
-          ))}
 
-          <span className="ml-1 text-[12px] font-bold text-amber-700">
-            {product.ratingsAverage}
-          </span>
-        </div>
+          <div className="flex items-center justify-end gap-1 rounded-lg bg-slate-50/80 px-2 py-1">
+            {[...Array(5)].map((_, index) => (
+              <Star
+                key={index}
+                size={14}
+                className={
+                  index < Math.round(product.ratingsAverage)
+                    ? "fill-amber-400 text-amber-400"
+                    : "fill-slate-200 text-slate-200"
+                }
+              />
+            ))}
+            <span className="ml-1 text-[11px] font-bold text-amber-700">
+              {product.ratingsAverage}
+            </span>
+          </div>
 
-        {/* Add to Cart Button */}
-        <button className="mt-4 w-full h-10 hover:cursor-pointer bg-blue-600 text-white rounded-xl flex items-center justify-center gap-2 font-bold text-sm transition-all active:scale-95 hover:bg-blue-700 shadow-md shadow-blue-200">
-          <ShoppingCart size={16} />
-          Add to Cart
-        </button>
+          <button
+            type="button"
+            className="mt-2 flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 text-sm font-bold text-white shadow-md shadow-blue-200/60 transition hover:bg-blue-700 active:scale-[0.98]"
+          >
+            <ShoppingCart size={16} />
+            Add to Cart
+          </button>
+        </div>
       </div>
     </div>
   );

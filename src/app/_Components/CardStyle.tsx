@@ -36,7 +36,7 @@ const CardStyle = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-stretch py-6">
+    <div className="flex flex-col items-stretch justify-center gap-4 py-2 md:flex-row md:gap-6 md:py-4">
       {cards.map((card, index) => (
         <div
           key={card.id}

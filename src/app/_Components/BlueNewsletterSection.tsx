@@ -18,7 +18,7 @@ export default function BlueNewsletterSection() {
   ];
 
   return (
-    <section className="mt-20 mb-10 rounded-[2rem] border border-blue-100 bg-linear-to-br from-blue-50 via-white to-blue-50/70 p-4 md:p-6 lg:p-8 shadow-sm">
+    <section className="rounded-[2rem] border border-blue-100/90 bg-linear-to-br from-blue-50/90 via-white to-slate-50/80 p-4 shadow-md shadow-blue-900/5 md:p-6 lg:p-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-6 items-stretch">
         <div className="lg:col-span-8 rounded-3xl border border-blue-100/70 bg-white/85 backdrop-blur p-5 md:p-7">
           <div className="inline-flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-700">

@@ -1,4 +1,5 @@
-"use server"
+"use server";
+import { cookies } from "next/headers";
 import { schematypesign } from "./Signup.schema";
 
 export async function signupServerAction(values: schematypesign) {
@@ -13,6 +14,11 @@ export async function signupServerAction(values: schematypesign) {
     },
   );
   const finalRes = await res.json();
+  const myCookis = await cookies();
 
+  myCookis.set("token", finalRes.token, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24,
+  });
   return finalRes.message;
 }

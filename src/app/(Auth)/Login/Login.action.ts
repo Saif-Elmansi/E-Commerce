@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { schematypesignIn } from "./Signup.schema";
 
 export async function loginServerAction(values: schematypesignIn) {
@@ -14,5 +15,13 @@ export async function loginServerAction(values: schematypesignIn) {
     },
   );
   const finalRes = await res.json();
+
+  const myCookis = await cookies();
+
+  myCookis.set("token", finalRes.token, {
+    httpOnly: true,
+    maxAge: 60 * 60 * 24,
+    
+  });
   return finalRes.message;
 }

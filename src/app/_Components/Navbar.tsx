@@ -85,14 +85,18 @@ export function Navbar() {
               </Link>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
-              <button className="hover:text-blue-600 transition flex items-center gap-1.5 text-xs sm:text-sm">
-                <User size={15} />{" "}
-                <span className="hidden sm:inline">Sign In</span>
-              </button>
-              <button className="bg-blue-600 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-blue-700 transition text-xs sm:text-sm">
-                <span className="hidden sm:inline">Sign Up</span>
-                <span className="sm:hidden">Sign Up</span>
-              </button>
+              <Link href={"/Login"}>
+                <button className="hover:text-blue-600 hover:cursor-pointer transition flex items-center gap-1.5 text-xs sm:text-sm">
+                  <User size={15} />{" "}
+                  <span className="hidden sm:inline">Sign In</span>
+                </button>
+              </Link>
+              <Link href={"/Signup"}>
+                <button className="bg-blue-600 text-white hover:cursor-pointer px-2 sm:px-3 py-1 rounded-md hover:bg-blue-700 transition text-xs sm:text-sm">
+                  <span className="hidden sm:inline">Sign Up</span>
+                  <span className="sm:hidden">Sign Up</span>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

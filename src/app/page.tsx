@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import MyTitle from "./_Components/MyTitle";
 import CardProduct from "./_Components/Product/CardProduct";
 import { ProductType } from "@/Types/Product.type";
@@ -9,13 +9,17 @@ import img1 from "@images/32ab6199086767.5eeac72551f8a.jpg";
 import img2 from "@images/Trumps-one-iPhone-related-bucket-list-entry-that-even-he-cannot-make-happen.webp";
 import img3 from "@images/saint-petersburg-russia-circa-may-goods-display-sony-store-galeria-shopping-center-electronics-store-134641471.webp";
 import img4 from "@images/shutterstock_2434354809.webp";
-import ShopByCategory from "./_Components/ShopByCategory/ShopByCategory";
 import { FaHeadset, FaShieldAlt, FaTruck, FaUndo } from "react-icons/fa";
 import CardStyle from "./_Components/CardStyle";
 import BlueNewsletterSection from "./_Components/BlueNewsletterSection";
+import LoadingView from "./_Components/States/LoadingView";
 
 export default async function Home() {
   let products = await getAllProducts();
+
+  let ShopByCategoryLazy = lazy(
+    () => import("./_Components/ShopByCategory/ShopByCategory"),
+  );
 
   const images = [img2.src, img1.src, img3.src, img4.src];
   return (
@@ -82,7 +86,15 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <ShopByCategory />
+      <Suspense
+        fallback={
+          <>
+            <LoadingView />
+          </>
+        }
+      >
+        <ShopByCategoryLazy />
+      </Suspense>
       <CardStyle />
       <MyTitle tag="Featured" name="Products" />
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-6">

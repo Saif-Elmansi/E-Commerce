@@ -3,6 +3,7 @@ import { Exo } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./_Components/Navbar";
 import Footer from "./_Components/Footer";
+import { Toaster } from "sonner";
 
 const exo = Exo({
   variable: "--font-exo",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${exo.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <Navbar />
         <main className="mt-27.5 flex-1">{children}</main>
+        <Toaster/>
         <Footer />
       </body>
     </html>

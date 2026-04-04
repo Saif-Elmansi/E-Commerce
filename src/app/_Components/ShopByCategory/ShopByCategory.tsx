@@ -8,6 +8,8 @@ import Link from "next/link";
 export default async function ShopByCategory() {
   let categorys = await getCategory();
 
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   return (
     <div className="rounded-3xl border border-blue-100/60 bg-linear-to-b from-white to-blue-50/30 px-4 py-8 shadow-sm shadow-blue-900/5 md:px-6 md:py-10">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

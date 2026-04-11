@@ -9,11 +9,12 @@ import img1 from "@images/32ab6199086767.5eeac72551f8a.jpg";
 import img2 from "@images/Trumps-one-iPhone-related-bucket-list-entry-that-even-he-cannot-make-happen.webp";
 import img3 from "@images/saint-petersburg-russia-circa-may-goods-display-sony-store-galeria-shopping-center-electronics-store-134641471.webp";
 import img4 from "@images/shutterstock_2434354809.webp";
-import { FaHeadset, FaShieldAlt, FaTruck, FaUndo } from "react-icons/fa";
+import { FaHeadset, FaLongArrowAltRight, FaShieldAlt, FaTruck, FaUndo } from "react-icons/fa";
 import CardStyle from "./_Components/CardStyle";
 import BlueNewsletterSection from "./_Components/BlueNewsletterSection";
 import LoadingView from "./_Components/States/LoadingView";
 import { getToken } from "@/utils/getMytoken";
+import Link from "next/link";
 
 const ShopByCategoryLazy = lazy(
   () => import("./_Components/ShopByCategory/ShopByCategory"),
@@ -103,12 +104,16 @@ export default async function Home() {
       <section className="mt-12 md:mt-16">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <MyTitle tag="Featured" name="Products" />
-          <p className="text-sm font-medium text-slate-500 max-w-md">
-            Hand-picked electronics and accessories — quality-checked for you.
-          </p>
+          <Link
+            href="/Shop"
+            className="group inline-flex items-center gap-2 self-start rounded-2xl border border-blue-100 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 sm:self-auto"
+          >
+            <span>View All Products</span>
+            <FaLongArrowAltRight className="transition group-hover:translate-x-0.5" />
+          </Link>
         </div>
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {products?.map((myproduct: ProductType) => (
+          {products?.slice(0, 10).map((myproduct: ProductType) => (
             <div className="col-span-1" key={myproduct.id}>
               <CardProduct product={myproduct} />
             </div>

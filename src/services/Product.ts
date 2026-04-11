@@ -6,7 +6,7 @@ export async function getAllProducts(): Promise<ProductType[]| undefined > {
       cache: "force-cache",
       next: {
         tags: ["allproducts"],
-        revalidate: 5000,
+        
       },
     });
     let { data } = await res.json();
@@ -23,7 +23,7 @@ export async function getProductById(id:string): Promise<ProductType| undefined 
       cache: "force-cache",
       next: {
         tags: ["productdet",id],
-        revalidate: 3000,
+        
       },
     });
     let { data } = await res.json();

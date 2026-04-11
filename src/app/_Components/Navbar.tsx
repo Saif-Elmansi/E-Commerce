@@ -182,19 +182,6 @@ export function Navbar() {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-50 gap-1 p-2 fixed z-50 bg-white ">
-                <ListItem href="/docs" title="All Categorise"></ListItem>
-                <ListItem href="/" title="Electronics"></ListItem>
-                <ListItem href="/" title="Women's Fashion"></ListItem>
-                <ListItem href="/" title="Men's Fashion"></ListItem>
-                <ListItem href="/" title="Beauty & Health"></ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem>
             <NavigationMenuLink
               asChild
               className={navigationMenuTriggerStyle()}
@@ -240,7 +227,7 @@ export function Navbar() {
               </span>
             </Link>
             <Link
-              href="/"
+              href="/Cart"
               className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
             >
               <ShoppingBag size={20} className="sm:w-5.5 sm:h-5.5" />
@@ -306,76 +293,6 @@ export function Navbar() {
                 >
                   Shop
                 </Link>
-
-                {/* Categories Dropdown */}
-                <div className="py-3 px-4">
-                  <button
-                    onClick={() => setCategoriesOpen(!categoriesOpen)}
-                    className="w-full flex items-center justify-between text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium py-2 px-2"
-                  >
-                    <span>Getting started</span>
-                    <ChevronDown
-                      size={20}
-                      className={`transition-transform ${
-                        categoriesOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {categoriesOpen && (
-                    <div className="mt-2 ml-4 space-y-2">
-                      <Link
-                        href="/docs"
-                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setCategoriesOpen(false);
-                        }}
-                      >
-                        All Categorise
-                      </Link>
-                      <Link
-                        href="/"
-                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setCategoriesOpen(false);
-                        }}
-                      >
-                        Electronics
-                      </Link>
-                      <Link
-                        href="/"
-                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setCategoriesOpen(false);
-                        }}
-                      >
-                        Women's Fashion
-                      </Link>
-                      <Link
-                        href="/"
-                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setCategoriesOpen(false);
-                        }}
-                      >
-                        Men's Fashion
-                      </Link>
-                      <Link
-                        href="/"
-                        className="block py-2 px-4 text-slate-600 hover:bg-slate-50 rounded-lg transition text-sm"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setCategoriesOpen(false);
-                        }}
-                      >
-                        Beauty & Health
-                      </Link>
-                    </div>
-                  )}
-                </div>
 
                 <Link
                   href="/Brands"

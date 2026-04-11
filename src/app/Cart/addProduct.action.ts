@@ -1,6 +1,6 @@
 "use server";
 
-import { CartResType } from "@/Types/Shop.type";
+import { CartResType } from "@/Types/Cart.type";
 import { getToken } from "@/utils/getMytoken";
 
 export async function addMyProduct(id: string) :Promise<CartResType> {

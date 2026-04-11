@@ -1,6 +1,6 @@
 "use client";
 import { shopContext } from "@/app/_Context/ShopContext";
-import { addMyProduct } from "@/app/Shop/addProduct.action";
+import { addMyProduct } from "@/app/Cart/addProduct.action";
 import { ShoppingCart } from "lucide-react";
 import React, { useContext } from "react";
 import { toast } from "sonner";

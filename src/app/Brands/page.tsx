@@ -1,7 +1,9 @@
-import React from 'react'
+import { getAllBrands } from "@/services/Brands";
+import React from "react";
 
-export default function page() {
-  return (
-    <div>brands page</div>
-  )
+export default async function page() {
+  const data = await getAllBrands();
+  console.log("in brands", data);
+
+  return <div>brands page</div>;
 }

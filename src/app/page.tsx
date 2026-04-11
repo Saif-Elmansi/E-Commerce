@@ -25,7 +25,7 @@ export default async function Home() {
 
   getToken();
 
-  const images = [img2.src, img1.src, img3.src, img4.src];
+  const images = [img3.src, img4.src, img1.src, img2.src];
 
   const trustItems = [
     {

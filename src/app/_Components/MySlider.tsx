@@ -49,7 +49,7 @@ export default function MySlider({
                 delay: autoplayDelay,
                 disableOnInteraction: autoplayDisableOnInteraction,
               }
-            : true
+            : false
         }
         navigation={showNavigation}
         pagination={showPagination ? { clickable: true } : false}
@@ -68,7 +68,6 @@ export default function MySlider({
           </SwiperSlide>
         ))}
       </Swiper>
-
     </div>
   );
 }

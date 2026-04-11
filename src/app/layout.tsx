@@ -5,6 +5,7 @@ import { Navbar } from "./_Components/Navbar";
 import Footer from "./_Components/Footer";
 import { Toaster } from "sonner";
 import MySessionProvider from "./_providers/MySessionProvider";
+import ShopContext from "./_Context/ShopContext";
 
 const exo = Exo({
   variable: "--font-exo",
@@ -27,10 +28,12 @@ export default function RootLayout({
         className={`${exo.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
         <MySessionProvider>
-          <Navbar />
-          <main className="mt-27.5 flex-1">{children}</main>
-          <Toaster />
-          <Footer />
+          <ShopContext>
+            <Navbar />
+            <main className="mt-27.5 flex-1">{children}</main>
+            <Toaster />
+            <Footer />
+          </ShopContext>
         </MySessionProvider>
       </body>
     </html>

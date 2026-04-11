@@ -2,6 +2,7 @@ import { ProductType } from "@/Types/Product.type";
 import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import AddProductBtn from "./AddProductBtn";
 
 interface ProductCardProps {
   product: ProductType;
@@ -81,13 +82,7 @@ export default function CardProduct({ product }: ProductCardProps) {
             </span>
           </div>
 
-          <button
-            type="button"
-            className="mt-2 flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-blue-600 text-sm font-bold text-white shadow-md shadow-blue-200/60 transition hover:bg-blue-700 active:scale-[0.98]"
-          >
-            <ShoppingCart size={16} />
-            Add to Cart
-          </button>
+          <AddProductBtn productId={product.id}  />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -27,10 +27,13 @@ import {
 } from "lucide-react";
 import { BiSupport } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
+import { shopContext } from "../_Context/ShopContext";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [categoriesOpen, setCategoriesOpen] = React.useState(false);
+
+  const { numberofShopItem } = useContext(shopContext) as any;
 
   const session = useSession();
 
@@ -242,7 +245,7 @@ export function Navbar() {
             >
               <ShoppingBag size={20} className="sm:w-5.5 sm:h-5.5" />
               <span className="absolute top-1 right-1 h-4 w-4 bg-blue-600 text-white text-[10px] flex items-center justify-center rounded-full">
-                0
+                {numberofShopItem}
               </span>
             </Link>
           </div>

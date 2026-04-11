@@ -26,10 +26,17 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { BiSupport } from "react-icons/bi";
+import { signOut, useSession } from "next-auth/react";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [categoriesOpen, setCategoriesOpen] = React.useState(false);
+
+  const session = useSession();
+
+  function logOut() {
+    signOut({ redirect: true, callbackUrl: "/Login" });
+  }
 
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -85,18 +92,31 @@ export function Navbar() {
               </Link>
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
-              <Link href={"/Login"}>
-                <button className="hover:text-blue-600 hover:cursor-pointer transition flex items-center gap-1.5 text-xs sm:text-sm">
+              {session.data ? (
+                <button
+                  onClick={logOut}
+                  className="hover:text-blue-600 hover:cursor-pointer transition flex items-center gap-1.5 text-xs sm:text-sm"
+                >
                   <User size={15} />{" "}
-                  <span className="hidden sm:inline">Sign In</span>
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
-              </Link>
-              <Link href={"/Signup"}>
-                <button className="bg-blue-600 text-white hover:cursor-pointer px-2 sm:px-3 py-1 rounded-md hover:bg-blue-700 transition text-xs sm:text-sm">
-                  <span className="hidden sm:inline">Sign Up</span>
-                  <span className="sm:hidden">Sign Up</span>
-                </button>
-              </Link>
+              ) : (
+                <>
+                  {" "}
+                  <Link href={"/Login"}>
+                    <button className="hover:text-blue-600 hover:cursor-pointer transition flex items-center gap-1.5 text-xs sm:text-sm">
+                      <User size={15} />{" "}
+                      <span className="hidden sm:inline">Sign In</span>
+                    </button>
+                  </Link>
+                  <Link href={"/Signup"}>
+                    <button className="bg-blue-600 text-white hover:cursor-pointer px-2 sm:px-3 py-1 rounded-md hover:bg-blue-700 transition text-xs sm:text-sm">
+                      <span className="hidden sm:inline">Sign Up</span>
+                      <span className="sm:hidden">Sign Up</span>
+                    </button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

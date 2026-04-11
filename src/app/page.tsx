@@ -13,6 +13,7 @@ import { FaHeadset, FaShieldAlt, FaTruck, FaUndo } from "react-icons/fa";
 import CardStyle from "./_Components/CardStyle";
 import BlueNewsletterSection from "./_Components/BlueNewsletterSection";
 import LoadingView from "./_Components/States/LoadingView";
+import { getToken } from "@/utils/getMytoken";
 
 const ShopByCategoryLazy = lazy(
   () => import("./_Components/ShopByCategory/ShopByCategory"),
@@ -20,6 +21,8 @@ const ShopByCategoryLazy = lazy(
 
 export default async function Home() {
   let products = await getAllProducts();
+
+  getToken();
 
   const images = [img2.src, img1.src, img3.src, img4.src];
 

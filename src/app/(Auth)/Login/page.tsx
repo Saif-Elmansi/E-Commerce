@@ -14,6 +14,8 @@ import { LogIn } from "lucide-react";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { loginServerAction } from "./Login.action";
 
+import { signIn } from "next-auth/react";
+
 export default function page() {
   const form = useForm({
     defaultValues: {
@@ -30,18 +32,19 @@ export default function page() {
     try {
       console.log(values);
 
-      const finalRes = await loginServerAction(values);
+      // const finalRes = await loginServerAction(values);
 
-      console.log(finalRes);
-      if (finalRes === "success") {
-        toast.success("success SIGN UP", {
-          richColors: true,
-          position: "top-center",
-        });
-        rout.push("/");
-      } else {
-        throw new Error(finalRes || "Something went wrong");
-      }
+      signIn("credentials", { ...values, redirect: true, callbackUrl: "/" });
+      // console.log(finalRes);
+      // if (finalRes === "success") {
+      //   toast.success("success SIGN UP", {
+      //     richColors: true,
+      //     position: "top-center",
+      //   });
+      //   rout.push("/");
+      // } else {
+      //   throw new Error(finalRes || "Something went wrong");
+      // }
     } catch (error) {
       console.log(error);
 

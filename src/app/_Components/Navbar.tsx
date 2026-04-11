@@ -189,6 +189,15 @@ export function Navbar() {
               <Link href="/Brands">Brands</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/Contact">Contact</Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
 
         <div className="flex items-center gap-2 sm:gap-4 px-2">
@@ -200,7 +209,7 @@ export function Navbar() {
             <Search size={20} />
           </button>
 
-          <Link href={"/"}>
+          <Link href="/Contact">
             <div className="hidden xl:flex items-center gap-3 border-r pr-6 border-gray-200">
               <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
                 <BiSupport className="text-blue-600 text-xl" />
@@ -300,6 +309,13 @@ export function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Brands
+                </Link>
+                <Link
+                  href="/Contact"
+                  className="py-3 px-4 text-slate-700 hover:bg-slate-50 rounded-lg transition font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
                 </Link>
               </nav>
             </div>

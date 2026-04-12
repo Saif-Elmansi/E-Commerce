@@ -6,7 +6,9 @@ import React, { useContext } from "react";
 import { toast } from "sonner";
 
 export default function AddProductBtn({ productId }: { productId: string }) {
-  const { setNumberofShopItem } = useContext(shopContext) as any;
+  const { setNumberofShopItem, setDataCartContext } = useContext(
+    shopContext,
+  ) as any;
 
   async function handelToCart() {
     const res = await addMyProduct(productId);
@@ -20,6 +22,7 @@ export default function AddProductBtn({ productId }: { productId: string }) {
       });
 
       setNumberofShopItem(res.numOfCartItems);
+      setDataCartContext(res);
     }
   }
   return (

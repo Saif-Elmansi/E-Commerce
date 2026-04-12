@@ -1,3 +1,4 @@
+"use client";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getUserCart } from "./addProduct.action";
@@ -6,32 +7,35 @@ import CartEmptyState from "./_Components/CartEmptyState";
 import CartLineList from "./_Components/CartLineList";
 import CartOrderSummary from "./_Components/CartOrderSummary";
 import { CartResType } from "@/Types/Cart.type";
+import { useContext } from "react";
+import { shopContext } from "../_Context/ShopContext";
 
-export const metadata: Metadata = {
-  title: "Cart | MEGA STORE",
-  description: "Review your shopping cart and checkout.",
-};
+// export const metadata: Metadata = {
+//   title: "Cart | MEGA STORE",
+//   description: "Review your shopping cart and checkout.",
+// };
 
-export default async function CartPage() {
+export default function CartPage() {
+  const { dataCartContext }  = useContext(shopContext)as { dataCartContext: any };
+
   let cartResponse: CartResType | null = null;
   try {
-    cartResponse = await getUserCart();
+    cartResponse = dataCartContext;
   } catch {
     cartResponse = null;
   }
 
   const dataCart =
-    cartResponse?.data ?? ({ products: [], totalCartPrice: 0 } as CartResType["data"]);
+    cartResponse?.data ??
+    ({ products: [], totalCartPrice: 0 } as CartResType["data"]);
 
   const products = dataCart.products ?? [];
-  
+
   const numOfCartItems =
     cartResponse?.numOfCartItems ??
     products.reduce((n, line) => n + line.count, 0);
 
-
   const subtotal = dataCart.totalCartPrice ?? 0;
-
 
   const hasItems = products.length > 0;
 
@@ -56,7 +60,7 @@ export default async function CartPage() {
         </div>
       )}
 
-      <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm font-semibold text-slate-500">
+      {/* <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm font-semibold text-slate-500">
         <Link href="/" className="transition hover:text-blue-600">
           Home
         </Link>
@@ -68,7 +72,8 @@ export default async function CartPage() {
         <Link href="/Brands" className="transition hover:text-blue-600">
           Brands
         </Link>
-      </div>
+      </div> */}
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CartItemType } from "@/Types/Cart.type";
 import { ChevronRight } from "lucide-react";
+import DelBtnItemCart from "./DelBtnItemCart";
 
 type CartLineListProps = {
   products: CartItemType[];
@@ -48,7 +49,8 @@ export default function CartLineList({ products }: CartLineListProps) {
                     />
                   </Link>
                   <p className="mt-1 text-xs font-semibold text-slate-500">
-                    {p.brand?.name ?? "Brand"} · {p.category?.name ?? "Category"}
+                    {p.brand?.name ?? "Brand"} ·{" "}
+                    {p.category?.name ?? "Category"}
                   </p>
                   <p className="mt-2 text-sm font-bold text-slate-700">
                     {line.price.toLocaleString()}{" "}
@@ -64,6 +66,9 @@ export default function CartLineList({ products }: CartLineListProps) {
                   <span className="text-base font-black text-blue-600 sm:text-lg">
                     {lineTotal.toLocaleString()}{" "}
                     <span className="text-xs font-bold text-blue-400">EGP</span>
+                  </span>
+                  <span>
+                    <DelBtnItemCart id={p.id}/>
                   </span>
                 </div>
               </div>

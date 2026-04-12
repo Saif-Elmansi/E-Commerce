@@ -3,7 +3,7 @@
 import { CartResType } from "@/Types/Cart.type";
 import { getToken } from "@/utils/getMytoken";
 
-export async function addMyProduct(id: string) :Promise<CartResType> {
+export async function addMyProduct(id: string): Promise<CartResType> {
   const token = await getToken();
   console.log("test this token", token);
 
@@ -22,4 +22,16 @@ export async function addMyProduct(id: string) :Promise<CartResType> {
   console.log("final res shop", finalRes);
 
   return finalRes;
+}
+
+export async function getUserCart(): Promise<CartResType> {
+  const token = await getToken();
+
+  const res = await fetch("https://ecommerce.routemisr.com/api/v2/cart", {
+    headers: {
+      token: token as string,
+    },
+  });
+
+  return (await res.json()) as CartResType;
 }

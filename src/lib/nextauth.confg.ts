@@ -1,6 +1,5 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { email } from "zod";
 
 export const nextAuthConfig: NextAuthOptions = {
   providers: [

@@ -3,6 +3,7 @@ import { ProductType } from "@/Types/Product.type";
 import React, { useState } from "react";
 import Link from "next/link";
 import FeaturesBar from "./CompProductDet/FeaturesBar";
+import ProductDetTabs from "./CompProductDet/ProductDetTabs";
 import {
   ChevronRight,
   Heart,
@@ -297,6 +298,8 @@ export default function ProductDet({ productdet }: detType) {
           </div>
         </div>
       </div>
+
+      <ProductDetTabs productdet={productdet} />
 
       <div className="mt-10">
         <FeaturesBar />

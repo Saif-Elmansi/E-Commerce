@@ -38,7 +38,9 @@ export default function CartOrderSummary({
 
       <div className="mt-6 border-t border-slate-100 pt-5">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-bold text-slate-600">Estimated total</span>
+          <span className="text-sm font-bold text-slate-600">
+            Estimated total
+          </span>
           <span className="text-xl font-black text-blue-600">
             {subtotal.toLocaleString()}{" "}
             <span className="text-sm font-bold text-blue-400">EGP</span>
@@ -46,14 +48,15 @@ export default function CartOrderSummary({
         </div>
       </div>
 
-      <button
-        type="button"
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-3.5 text-sm font-black text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-700"
-      >
-        <Lock size={18} aria-hidden />
-        Proceed to checkout
-      </button>
-
+      <Link href={"/Payment"}>
+        <button
+          type="button"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-3.5 text-sm font-black text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-700"
+        >
+          <Lock size={18} aria-hidden />
+          Proceed to checkout
+        </button>
+      </Link>
       <Link
         href="/Shop"
         className="mt-3 block w-full rounded-2xl border-2 border-slate-100 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-blue-100 hover:bg-blue-50/50 hover:text-blue-700"

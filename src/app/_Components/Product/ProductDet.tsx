@@ -1,8 +1,10 @@
 "use client";
 import { ProductType } from "@/Types/Product.type";
 import React, { useState } from "react";
+import Link from "next/link";
 import FeaturesBar from "./CompProductDet/FeaturesBar";
 import {
+  ChevronRight,
   Heart,
   Minus,
   Plus,
@@ -14,6 +16,7 @@ import {
   Truck,
   Zap,
 } from "lucide-react";
+import { addMyProduct } from "@/app/Cart/addProduct.action";
 
 interface detType {
   productdet: ProductType;
@@ -21,39 +24,57 @@ interface detType {
 export default function ProductDet({ productdet }: detType) {
   const [activeImage, setActiveImage] = useState(productdet.imageCover);
   const [quantity, setQuantity] = useState(1);
-  console.log(productdet);
 
   return (
-    <div>
-      {/* nav det */}
-      <div className="px-20"></div>
-      {/* main card */}
-      <div className="grid grid-cols-1 w-15/16 m-auto md:grid-cols-12 gap-8 px-4 md:px-4 py-4 bg-white rounded-3xl shadow-sm border border-gray-50 mb-4">
-        <div className="col-span-1 md:col-span-5 lg:col-span-4 space-y-4">
-          <div className="group relative aspect-square bg-slate-50 border border-slate-100 rounded-[2.5rem] overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10">
+    <div className="w-full max-w-7xl mx-auto px-3 sm:px-5 md:px-6 pb-10 pt-2 md:pt-4">
+      <nav
+        className="mb-5 flex flex-wrap items-center gap-1.5 text-sm font-medium text-slate-500"
+        aria-label="Breadcrumb"
+      >
+        <Link href="/" className="transition hover:text-blue-600">
+          Home
+        </Link>
+        <ChevronRight size={14} className="text-slate-300" aria-hidden />
+        <Link href="/Shop" className="transition hover:text-blue-600">
+          Shop
+        </Link>
+        <ChevronRight size={14} className="text-slate-300" aria-hidden />
+        <span className="line-clamp-1 max-w-[min(100%,14rem)] font-bold text-slate-800">
+          {productdet.title}
+        </span>
+      </nav>
+
+      <div className="grid grid-cols-1 gap-8 rounded-3xl border border-slate-100/90 bg-linear-to-br from-white via-white to-blue-50/20 p-4 shadow-sm shadow-slate-200/40 md:grid-cols-12 md:gap-10 md:p-6 lg:p-8">
+        <div className="col-span-1 space-y-4 md:col-span-5 lg:col-span-4">
+          <div className="group relative aspect-square overflow-hidden rounded-3xl bg-linear-to-b from-slate-50 to-blue-50/30 ring-1 ring-slate-100/90 transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={activeImage}
               alt={productdet.title}
-              className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-110"
+              className="h-full w-full object-contain p-6 transition-transform duration-700 group-hover:scale-[1.03] sm:p-8"
             />
-            {/* Badge الخصم لو موجود ممكن يتحط هنا على الصورة */}
+            <div
+              className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-black/5"
+              aria-hidden
+            />
           </div>
 
-          {/* معرض الصور المصغرة */}
-          <div className="flex gap-3 justify-center items-center py-2 overflow-x-auto no-scrollbar">
+          <div className="flex items-center justify-center gap-2.5 overflow-x-auto py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {productdet.images.map((img, idx) => (
               <button
+                type="button"
                 key={idx}
                 onClick={() => setActiveImage(img)}
-                className={`relative w-20 h-20 shrink-0 rounded-2xl border-2 transition-all duration-300 overflow-hidden bg-white shadow-sm ${
+                className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl border-2 bg-white shadow-sm transition-all duration-300 sm:h-20 sm:w-20 ${
                   activeImage === img
-                    ? "border-blue-600 scale-105 shadow-blue-100"
-                    : "border-transparent opacity-60 hover:opacity-100 hover:border-blue-200"
+                    ? "scale-105 border-blue-600 shadow-md shadow-blue-500/15 ring-2 ring-blue-500/20"
+                    : "border-transparent opacity-70 hover:scale-[1.02] hover:border-blue-200 hover:opacity-100"
                 }`}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={img}
-                  className="w-full h-full object-contain p-1.5"
+                  className="h-full w-full object-contain p-1.5"
                   alt={`product thumb ${idx}`}
                 />
               </button>
@@ -61,33 +82,33 @@ export default function ProductDet({ productdet }: detType) {
           </div>
         </div>
 
-        <div className="col-span-1 md:col-span-7 lg:col-span-8 space-y-8 pl-0 md:pl-6">
-          {/* 1. Badges & Brand */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="bg-blue-50 text-blue-700 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border border-blue-100">
+        <div className="col-span-1 space-y-6 md:col-span-7 md:space-y-8 lg:col-span-8">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-xl border border-blue-100 bg-blue-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-blue-700">
                 {productdet.category.name}
               </span>
-              <span className="bg-slate-50 text-slate-500 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg border border-slate-100">
+              <span className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-600">
                 {productdet.brand?.name || "Generic"}
               </span>
             </div>
 
-            {/* Stock Status */}
-            <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50/50 px-3 py-1.5 rounded-full border border-emerald-100">
-              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
-              <span className="text-[11px] font-black uppercase tracking-tighter">
+            <div className="flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50/80 px-3 py-1.5 text-emerald-700">
+              <span className="relative flex h-2 w-2" aria-hidden>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11px] font-black uppercase tracking-tight">
                 In Stock
               </span>
             </div>
           </div>
 
-          {/* 2. Title & Rating */}
           <div className="space-y-3">
-            <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-[1.1]">
+            <h1 className="text-3xl font-black leading-[1.15] tracking-tight text-slate-900 md:text-4xl">
               {productdet.title}
             </h1>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <div className="flex items-center gap-0.5">
                 {[...Array(5)].map((_, i) => (
                   <Star
@@ -100,36 +121,43 @@ export default function ProductDet({ productdet }: detType) {
                     }`}
                   />
                 ))}
-                <span className="text-sm font-black text-slate-900 ml-2">
+                <span className="ml-2 text-sm font-black text-slate-900">
                   {productdet.ratingsAverage}
                 </span>
               </div>
-              <div className="h-4 w-px bg-slate-200"></div>
-              <button className="text-slate-400 text-sm font-bold hover:text-blue-600 transition-colors">
+              <div className="hidden h-4 w-px bg-slate-200 sm:block" />
+              <button
+                type="button"
+                className="text-sm font-bold text-slate-500 transition-colors hover:text-blue-600"
+              >
                 {productdet.reviews.length} Customer Reviews
               </button>
             </div>
           </div>
 
-          {/* 3. Price Area */}
-          <div className="flex items-end gap-4 p-6 bg-slate-50/50 rounded-[2rem] border border-slate-100/50 w-fit">
+          <div className="inline-flex max-w-full flex-wrap items-end gap-4 rounded-[1.75rem] border border-slate-100 bg-slate-50/80 p-5 shadow-inner shadow-slate-100/50">
             <div className="flex flex-col">
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+              <span className="mb-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
                 Price
               </span>
-              <span className="text-5xl font-black text-slate-900 leading-none">
-                {productdet.priceAfterDiscount ? productdet.priceAfterDiscount: productdet.price }
-                <span className="text-lg ml-1 font-bold">EGP</span>
+              <span className="text-4xl font-black leading-none text-slate-900 sm:text-5xl">
+                {productdet.priceAfterDiscount
+                  ? productdet.priceAfterDiscount
+                  : productdet.price}
+                <span className="ml-1 text-lg font-bold">EGP</span>
               </span>
             </div>
-            <div className="flex flex-col items-start gap-1 pb-1">
-              <span className="text-lg text-slate-300 line-through font-bold">
+            <div className="flex flex-col items-start gap-1 pb-0.5">
+              <span className="text-lg font-bold text-slate-300 line-through">
                 {productdet.price} EGP
               </span>
-              <span className="bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-md shadow-sm shadow-red-200">
+              <span className="rounded-md bg-red-500 px-2 py-1 text-[10px] font-black text-white shadow-sm shadow-red-200">
                 SAVE{" "}
                 {Math.round(
-                  ((productdet.price - (productdet.priceAfterDiscount ? productdet.priceAfterDiscount:productdet.price)) /
+                  ((productdet.price -
+                    (productdet.priceAfterDiscount
+                      ? productdet.priceAfterDiscount
+                      : productdet.price)) /
                     productdet.price) *
                     100,
                 )}
@@ -138,55 +166,52 @@ export default function ProductDet({ productdet }: detType) {
             </div>
           </div>
 
-          {/* 4. Description */}
           <div className="space-y-2">
-            <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
+            <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">
               Product Overview
             </span>
-            <p className="text-slate-500 text-base leading-relaxed max-w-2xl font-medium">
+            <p className="max-w-2xl text-base font-medium leading-relaxed text-slate-600">
               {productdet.description}
             </p>
           </div>
 
-          {/* 5. Actions Area */}
-          <div className="space-y-6 pt-4 ">
-            <div className="flex flex-wrap items-center  gap-6">
-              {/* Quantity Selector */}
-              <div className="flex items-center bg-white border-2 border-slate-100 rounded-2xl p-1 shadow-sm">
+          <div className="space-y-6 pt-2">
+            <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="flex items-center rounded-2xl border-2 border-slate-100 bg-white p-1 shadow-sm">
                 <button
+                  type="button"
                   title="Decrease Quantity"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="w-11 h-11 flex items-center justify-center hover:bg-slate-50 text-slate-400 hover:text-blue-600 rounded-xl transition-all"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-400 transition-all hover:bg-slate-50 hover:text-blue-600"
                 >
                   <Minus size={20} strokeWidth={3} />
                 </button>
-                <span className="w-12 text-center font-black text-lg text-slate-800">
+                <span className="w-12 text-center text-lg font-black text-slate-800">
                   {quantity}
                 </span>
                 <button
+                  type="button"
                   title="Increase Quantity"
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="w-11 h-11 flex items-center justify-center hover:bg-slate-50 text-slate-400 hover:text-blue-600 rounded-xl transition-all"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl text-slate-400 transition-all hover:bg-slate-50 hover:text-blue-600"
                 >
                   <Plus size={20} strokeWidth={3} />
                 </button>
               </div>
 
-              {/* Stock Warning */}
-              <span className="text-slate-400 text-sm font-bold italic ml-auto md:ml-0">
+              <span className="text-sm font-bold italic text-slate-500 sm:ml-auto">
                 Only{" "}
-                <span className="text-blue-600">
+                <span className="font-black not-italic text-blue-600">
                   {productdet.quantity || 229}
                 </span>{" "}
                 units left!
               </span>
 
-              {/* Dynamic Total Price Label */}
-              <div className="flex flex-col ml-auto mr-10 ">
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
+              <div className="flex flex-col sm:ml-auto sm:mr-0 sm:text-right">
+                <span className="mb-0.5 text-[10px] font-black uppercase tracking-widest text-slate-400">
                   Total Amount
                 </span>
-                <div className="flex items-baseline gap-1.5">
+                <div className="flex items-baseline gap-1.5 sm:justify-end">
                   <span className="text-2xl font-black text-blue-600">
                     {productdet.priceAfterDiscount
                       ? (
@@ -194,65 +219,76 @@ export default function ProductDet({ productdet }: detType) {
                         ).toLocaleString()
                       : (quantity * productdet.price).toLocaleString()}
                   </span>
-                  <span className="text-xs font-bold text-blue-400 uppercase">
+                  <span className="text-xs font-bold uppercase text-blue-400">
                     Egp
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex-3 bg-blue-600 hover:bg-blue-700 text-white h-16 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 transition-all active:scale-95 group">
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => addMyProduct(productdet.id)}
+                className="group flex h-14 flex-1 items-center justify-center gap-3 rounded-2xl bg-blue-600 text-lg font-black text-white shadow-lg shadow-blue-500/25 transition-all hover:bg-blue-700 active:scale-[0.98] sm:h-16"
+              >
                 <ShoppingCart
                   size={22}
-                  className="group-hover:rotate-12 transition-transform"
+                  className="transition-transform group-hover:rotate-12"
                 />
                 Add to Cart
               </button>
-              <button className="flex-2 bg-slate-900 hover:bg-slate-800 text-white h-16 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all active:scale-95 group">
+              <button
+                type="button"
+                className="group flex h-14 flex-1 items-center justify-center gap-3 rounded-2xl bg-slate-900 text-lg font-black text-white transition-all hover:bg-slate-800 active:scale-[0.98] sm:h-16"
+              >
                 <Zap
                   size={22}
-                  className="fill-amber-400 text-amber-400 group-hover:scale-110 transition-transform"
+                  className="fill-amber-400 text-amber-400 transition-transform group-hover:scale-110"
                 />
                 Buy Now
               </button>
             </div>
 
-            {/* Wishlist & Share */}
-            <div className="flex gap-4">
-              <button className="flex-1 border-2 border-slate-100 h-14 rounded-2xl font-black text-slate-600 flex items-center justify-center gap-2 hover:bg-slate-50 hover:border-slate-200 transition-all active:scale-95 group">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                className="group flex h-14 flex-1 items-center justify-center gap-2 rounded-2xl border-2 border-slate-100 font-black text-slate-600 transition-all hover:border-slate-200 hover:bg-slate-50 active:scale-[0.98]"
+              >
                 <Heart
                   size={20}
-                  className="group-hover:fill-red-500 group-hover:text-red-500 transition-colors"
+                  className="transition-colors group-hover:fill-red-500 group-hover:text-red-500"
                 />
                 Add to Wishlist
               </button>
               <button
-                title="btn"
-                className="w-14 h-14 border-2 border-slate-100 rounded-2xl flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:border-slate-200 transition-all active:scale-95"
+                type="button"
+                title="Share"
+                className="flex h-14 w-full items-center justify-center rounded-2xl border-2 border-slate-100 text-slate-600 transition-all hover:border-slate-200 hover:bg-slate-50 active:scale-[0.98] sm:h-14 sm:w-14 sm:shrink-0"
               >
                 <Share2 size={20} />
               </button>
             </div>
           </div>
 
-          {/* 6. Info Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+          <div className="grid grid-cols-1 gap-4 rounded-[1.75rem] border border-slate-100 bg-slate-50/90 p-5 sm:grid-cols-3 sm:gap-5 sm:p-6">
             {[
               { icon: Truck, t: "Free Delivery", d: "Orders over $50" },
               { icon: RotateCcw, t: "Easy Returns", d: "30-day policy" },
               { icon: ShieldCheck, t: "Secure Payment", d: "100% Protected" },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-white shadow-sm rounded-xl flex items-center justify-center text-blue-600">
+              <div
+                key={i}
+                className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/70 px-3 py-2 shadow-sm shadow-slate-200/30"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 shadow-sm ring-1 ring-blue-100">
                   <item.icon size={20} />
                 </div>
                 <div>
-                  <p className="text-[11px] font-black text-slate-800 uppercase tracking-tight">
+                  <p className="text-[11px] font-black uppercase tracking-tight text-slate-800">
                     {item.t}
                   </p>
-                  <p className="text-[10px] text-slate-400 font-bold">
+                  <p className="text-[10px] font-bold text-slate-400">
                     {item.d}
                   </p>
                 </div>
@@ -261,12 +297,8 @@ export default function ProductDet({ productdet }: detType) {
           </div>
         </div>
       </div>
-      {/* some details */}
-      <div></div>
-      {/* the same product */}
-      <div></div>
-      {/* footer det */}
-      <div className="">
+
+      <div className="mt-10">
         <FeaturesBar />
       </div>
     </div>

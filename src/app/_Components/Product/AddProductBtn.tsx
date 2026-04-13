@@ -2,6 +2,7 @@
 import { shopContext } from "@/app/_Context/ShopContext";
 import { addMyProduct } from "@/app/Cart/addProduct.action";
 import { ShoppingCart } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { toast } from "sonner";
 
@@ -9,6 +10,8 @@ export default function AddProductBtn({ productId }: { productId: string }) {
   const { setNumberofShopItem, setDataCartContext } = useContext(
     shopContext,
   ) as any;
+
+  const rout = useRouter();
 
   async function handelToCart() {
     const res = await addMyProduct(productId);
@@ -23,6 +26,12 @@ export default function AddProductBtn({ productId }: { productId: string }) {
 
       setNumberofShopItem(res.numOfCartItems);
       setDataCartContext(res);
+    } else {
+      toast.error("Please Go to Login", {
+        position: "top-center",
+        richColors: true,
+      });
+      rout.push("/Login");
     }
   }
   return (

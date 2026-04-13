@@ -1,6 +1,6 @@
 "use client";
 import { ProductType } from "@/Types/Product.type";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Link from "next/link";
 import FeaturesBar from "./CompProductDet/FeaturesBar";
 import ProductDetTabs from "./CompProductDet/ProductDetTabs";
@@ -18,6 +18,9 @@ import {
   Zap,
 } from "lucide-react";
 import { addMyProduct } from "@/app/Cart/addProduct.action";
+import { shopContext } from "@/app/_Context/ShopContext";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface detType {
   productdet: ProductType;
@@ -25,6 +28,57 @@ interface detType {
 export default function ProductDet({ productdet }: detType) {
   const [activeImage, setActiveImage] = useState(productdet.imageCover);
   const [quantity, setQuantity] = useState(1);
+
+  const { setNumberofShopItem, setDataCartContext } = useContext(
+    shopContext,
+  ) as any;
+
+  const rout = useRouter();
+
+  async function handelToCart() {
+    const res = await addMyProduct(productdet.id);
+
+    console.log(res);
+
+    if (res.status == "success") {
+      toast.success(res.message, {
+        richColors: true,
+        position: "top-center",
+      });
+
+      setNumberofShopItem(res.numOfCartItems);
+      setDataCartContext(res);
+    } else {
+      toast.error("Please Go to Login", {
+        position: "top-center",
+        richColors: true,
+      });
+      rout.push("/Login");
+    }
+  }
+
+  async function handelToBuy() {
+    const res = await addMyProduct(productdet.id);
+
+    console.log(res);
+
+    if (res.status == "success") {
+      toast.success(res.message, {
+        richColors: true,
+        position: "top-center",
+      });
+
+      setNumberofShopItem(res.numOfCartItems);
+      setDataCartContext(res);
+      rout.push("/Payment");
+    } else {
+      toast.error("Please Go to Login", {
+        position: "top-center",
+        richColors: true,
+      });
+      rout.push("/Login");
+    }
+  }
 
   return (
     <div className="w-full max-w-7xl mx-auto px-3 sm:px-5 md:px-6 pb-10 pt-2 md:pt-4">
@@ -230,7 +284,7 @@ export default function ProductDet({ productdet }: detType) {
             <div className="flex flex-col gap-4 sm:flex-row">
               <button
                 type="button"
-                onClick={() => addMyProduct(productdet.id)}
+                onClick={handelToCart}
                 className="group flex h-14 flex-1 items-center justify-center gap-3 rounded-2xl bg-blue-600 text-lg font-black text-white shadow-lg shadow-blue-500/25 transition-all hover:bg-blue-700 active:scale-[0.98] sm:h-16"
               >
                 <ShoppingCart
@@ -241,6 +295,7 @@ export default function ProductDet({ productdet }: detType) {
               </button>
               <button
                 type="button"
+                onClick={handelToBuy}
                 className="group flex h-14 flex-1 items-center justify-center gap-3 rounded-2xl bg-slate-900 text-lg font-black text-white transition-all hover:bg-slate-800 active:scale-[0.98] sm:h-16"
               >
                 <Zap

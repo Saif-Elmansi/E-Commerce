@@ -8,6 +8,9 @@ export default function ShopContext({ children }: { children: ReactNode }) {
   const [numberofShopItem, setNumberofShopItem] = useState(0);
   const [dataCartContext, setDataCartContext] = useState({});
 
+  const [conutWishlist, setCountWishlist] = useState(0);
+  const [dataWishlist, setDataWishlist] = useState([]);
+
   useEffect(() => {
     void getUserCart().then((dataCart) => {
       console.log("finall car end point>>>>", dataCart);
@@ -24,6 +27,10 @@ export default function ShopContext({ children }: { children: ReactNode }) {
         setNumberofShopItem,
         dataCartContext,
         setDataCartContext,
+        conutWishlist,
+        setCountWishlist,
+        dataWishlist,
+        setDataWishlist,
       }}
     >
       {children}

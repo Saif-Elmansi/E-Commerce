@@ -1,14 +1,34 @@
+"use client";
 import { ProductType } from "@/Types/Product.type";
-import { Eye, Heart, ShoppingCart, Star } from "lucide-react";
+import { Eye, Heart, HeartPlus, ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import AddProductBtn from "./AddProductBtn";
+import { postWishlist } from "@/services/Wishlist";
+import { shopContext } from "@/app/_Context/ShopContext";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: ProductType;
 }
 
 export default function CardProduct({ product }: ProductCardProps) {
+  const { conutWishlist, setCountWishlist, setDataWishlist } =
+    useContext(shopContext) as any;
+
+  async function handelWishlist() {
+    const res = await postWishlist(product._id);
+    console.log(res);
+    if ((res.status = "success")) {
+      setCountWishlist(conutWishlist + 1);
+
+      setDataWishlist(res.data);
+      toast.success(res.message, {
+        richColors: true,
+        position: "top-center",
+      });
+    }
+  }
   return (
     <div className="group relative flex h-full flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-sm shadow-slate-200/30 transition duration-300 hover:-translate-y-1 hover:border-blue-100 hover:shadow-lg hover:shadow-blue-500/10">
       <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-linear-to-b from-slate-50 to-blue-50/30 ring-1 ring-slate-100/80">
@@ -21,10 +41,12 @@ export default function CardProduct({ product }: ProductCardProps) {
         <button
           title="heart"
           type="button"
+          onClick={handelWishlist}
           className="absolute right-2 top-2 rounded-full bg-white/90 p-2 text-slate-400 shadow-sm backdrop-blur-sm transition hover:scale-105 hover:text-red-500"
         >
-          <Heart size={18} />
+          <HeartPlus size={18} />
         </button>
+
         <Link
           title="View product"
           href={`/Product/${product.id}`}
@@ -82,7 +104,7 @@ export default function CardProduct({ product }: ProductCardProps) {
             </span>
           </div>
 
-          <AddProductBtn productId={product.id}  />
+          <AddProductBtn productId={product.id} />
         </div>
       </div>
     </div>

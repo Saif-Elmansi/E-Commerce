@@ -28,12 +28,24 @@ import {
 import { BiSupport } from "react-icons/bi";
 import { signOut, useSession } from "next-auth/react";
 import { shopContext } from "../_Context/ShopContext";
+import { getWishlist, postWishlist } from "@/services/Wishlist";
+import { toast } from "sonner";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [categoriesOpen, setCategoriesOpen] = React.useState(false);
 
-  const { numberofShopItem } = useContext(shopContext) as any;
+  const { numberofShopItem, conutWishlist, setCountWishlist, setDataWishlist } =
+    useContext(shopContext) as any;
+
+  async function handelWishlist() {
+    const res = await getWishlist();
+    console.log(res);
+    if ((res.status = "success")) {
+      setCountWishlist(res.count);
+      setDataWishlist(res.data);
+    }
+  }
 
   const session = useSession();
 
@@ -42,6 +54,7 @@ export function Navbar() {
   }
 
   React.useEffect(() => {
+    handelWishlist();
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
@@ -227,12 +240,12 @@ export function Navbar() {
 
           <div className="flex items-center gap-2 sm:gap-4">
             <Link
-              href="/"
+              href="/Wishlist"
               className="relative p-2 text-slate-600 hover:bg-slate-50 rounded-full transition"
             >
               <Heart size={20} className="sm:w-5.5 sm:h-5.5" />
               <span className="absolute top-1 right-1 h-4 w-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full">
-                0
+                {conutWishlist}
               </span>
             </Link>
             <Link

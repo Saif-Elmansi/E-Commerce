@@ -6,7 +6,6 @@ import Footer from "./_Components/Footer";
 import { Toaster } from "sonner";
 import MySessionProvider from "./_providers/MySessionProvider";
 import ShopContext from "./_Context/ShopContext";
-
 const exo = Exo({
   variable: "--font-exo",
   subsets: ["latin"],

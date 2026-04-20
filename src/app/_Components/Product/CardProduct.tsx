@@ -13,16 +13,19 @@ interface ProductCardProps {
 }
 
 export default function CardProduct({ product }: ProductCardProps) {
-  const { conutWishlist, setCountWishlist, setDataWishlist } =
-    useContext(shopContext) as any;
+  const { conutWishlist, setCountWishlist, setDataWishlist } = useContext(
+    shopContext,
+  ) as any;
 
   async function handelWishlist() {
     const res = await postWishlist(product._id);
     console.log(res);
-    if ((res.status = "success")) {
+    if (res.status === "success") {
       setCountWishlist(conutWishlist + 1);
 
       setDataWishlist(res.data);
+      console.log(res.data);
+
       toast.success(res.message, {
         richColors: true,
         position: "top-center",

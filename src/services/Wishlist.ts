@@ -36,3 +36,18 @@ export async function postWishlist(idProduct: string) {
 
   return res;
 }
+
+export async function deleteWishlistProduct(productId: string) {
+  const token = await getToken();
+  const res = await fetch(
+    `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        token: token as string,
+      },
+    },
+  );
+  return await res.json();
+}

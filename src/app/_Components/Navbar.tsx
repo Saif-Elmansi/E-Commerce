@@ -41,7 +41,7 @@ export function Navbar() {
   async function handelWishlist() {
     const res = await getWishlist();
     console.log(res);
-    if ((res.status = "success")) {
+    if (res.status === "success") {
       setCountWishlist(res.count);
       setDataWishlist(res.data);
     }
@@ -54,7 +54,6 @@ export function Navbar() {
   }
 
   React.useEffect(() => {
-    handelWishlist();
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
@@ -74,6 +73,10 @@ export function Navbar() {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
+
+  React.useEffect(() => {
+    handelWishlist();
+  }, []);
 
   return (
     <div className="fixed z-50 bg-white w-full top-0">
